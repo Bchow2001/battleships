@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { shipFactory, gameBoardFactory } from ".";
+import { shipFactory, gameBoardFactory, player } from "./factory";
 
 describe("shipFactory", () => {
 	const destroyer = shipFactory(4);
@@ -116,5 +116,41 @@ describe("gameBoard", () => {
 		g.receiveAttack(9, 9);
 		g.receiveAttack(9, 8);
 		expect(g.isAllSunk()).toBeTruthy();
+	});
+});
+
+describe("Player", () => {
+	test("switchTurn", () => {
+		const p = player("bryan", "Nimitz");
+		p.switchTurns();
+		expect(p.currentTurn).toEqual("Nimitz");
+	});
+
+	test("switch gameBoard", () => {
+		const g1 = gameBoardFactory();
+		const g2 = gameBoardFactory();
+		const p = player("bryan", "Nimitz", g1, g2);
+		g2.placeShip(1, 2, 1, "X");
+		p.switchTurns();
+	});
+
+	test("randomAttack", () => {
+		const g1 = gameBoardFactory();
+		const g2 = gameBoardFactory();
+		const p = player("bryan", "Nimitz", g1, g2);
+		const missedTest = () => {
+			let missed = [];
+			for (let i = 0; i < 10; i++) {
+				for (let j = 0; j < 10; j++) {
+					missed.push(`${[i, j]}`);
+				}
+			}
+			missed = missed.splice(1, 100);
+			return missed;
+		};
+		const miss = missedTest();
+		g2.missedAttacks = miss;
+		// p.switchTurns();
+		expect(p.randomAttack()).toBe("0,0");
 	});
 });

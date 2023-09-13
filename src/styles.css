@@ -1,0 +1,32 @@
+html {
+	color: red;
+	font-size: large;
+}
+
+.gameboard1,
+.gameboard2 {
+	display: flex;
+	flex-wrap: wrap-reverse;
+	width: 520px;
+	height: 520px;
+	border: 2px red solid;
+}
+
+.cell {
+	flex: auto;
+	width: 50px;
+	height: 50px;
+	border: 1px blue solid;
+}
+
+.ship {
+	background-color: green;
+}
+
+.miss {
+	background-color: yellow;
+}
+
+.hit {
+	background-color: red;
+}
