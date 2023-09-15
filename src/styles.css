@@ -3,8 +3,8 @@ html {
 	font-size: large;
 }
 
-.gameboard1,
-.gameboard2 {
+.g1,
+.g2 {
 	display: flex;
 	flex-wrap: wrap-reverse;
 	width: 520px;
