@@ -30,3 +30,7 @@ html {
 .hit {
 	background-color: red;
 }
+
+.hidden {
+	display: none;
+}

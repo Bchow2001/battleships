@@ -65,6 +65,9 @@ const gameBoardFactory = () => {
 		if (missedAttacks.includes(coord)) {
 			return false;
 		}
+		if (hitAttacks.includes(coord)) {
+			return false;
+		}
 		ships.forEach((item) => {
 			if (item.coordinates.includes(coord)) {
 				item.hit();
@@ -75,6 +78,7 @@ const gameBoardFactory = () => {
 		if (hit === false) {
 			missedAttacks.push(coord);
 		}
+		return true;
 	};
 
 	const isAllSunk = () => {
