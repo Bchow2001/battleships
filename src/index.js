@@ -53,6 +53,7 @@ const eventListeners = (g1, gDom1, g2, gDom2, p) => {
 	const cellNodeList1 = gameBoardDom1.childNodes;
 	const gameBoardDom2 = document.querySelector(`.${gDom2}`);
 	const cellNodeList2 = gameBoardDom2.childNodes;
+	const passDom = document.querySelector(".pass");
 	const returnClicks = (e) => {
 		const coordinateX = e.target.dataset.key.split(",")[0];
 		const coordinateY = e.target.dataset.key.split(",")[1];
@@ -67,11 +68,27 @@ const eventListeners = (g1, gDom1, g2, gDom2, p) => {
 		}
 		displayShips(g1, gDom1);
 		displayShips(g2, gDom2);
+		if (p.currentGameBoard === g1) {
+			setTimeout(() => {
+				hideGameBoard(gDom1);
+				passDom.classList.toggle("hidden");
+			}, 500);
+			setTimeout(() => {
+				passDom.classList.toggle("hidden");
+				hideGameBoard(gDom2);
+			}, 1500);
+		}
+		if (p.currentGameBoard === g2) {
+			setTimeout(() => {
+				hideGameBoard(gDom2);
+				passDom.classList.toggle("hidden");
+			}, 500);
+			setTimeout(() => {
+				passDom.classList.toggle("hidden");
+				hideGameBoard(gDom1);
+			}, 1500);
+		}
 		p.switchTurns();
-		setTimeout(() => {
-			hideGameBoard(gDom1);
-			hideGameBoard(gDom2);
-		}, 300);
 	};
 	cellNodeList1.forEach((node) => {
 		node.addEventListener("click", returnClicks, { once: true });
@@ -93,5 +110,4 @@ const gameLoop = () => {
 	hideGameBoard("g1");
 };
 
-// hideGameBoard("g1");
 gameLoop();
